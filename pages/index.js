@@ -1,11 +1,23 @@
 import Link from "next/link"
-  
-export default function Home() {
-return (
-  <>
-    <h1>Players API</h1>
+import { useEffect } from "react"
 
-    <Link href="/players">See Players</Link>
-  </>
-)
+export default function Home() {
+
+    const [players, setPlayers] = useState([])
+
+    useEffect(() => {
+        fetch("localhost:8080/api/players")
+            .then(res => res.json())
+            .then(data => {
+                setPlayers(data)
+            })
+    }, [])
+
+    return (
+        <>
+            <h1>Players API</h1>
+
+            <Link href="/players">See Players</Link>
+        </>
+    )
 }
