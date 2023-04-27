@@ -6,13 +6,18 @@ export default function Home() {
 
     const [players, setPlayers] = useState([])
 
-    // useEffect(() => {
-    //     fetch("http://localhost:8080/api/players")
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             setPlayers(data)
-    //         })
-    // }, [])
+    useEffect(() => {
+        fetch("http://localhost:8080/api/players")
+            .then(res => res.json())
+            .then(data => {
+                setPlayers(data)
+                console.log(players)
+            })
+    }, [])
+
+    //const showPlayers = players.map(player => (
+    //    
+    //))
 
     return (
         <>
