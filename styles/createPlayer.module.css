@@ -122,3 +122,11 @@
 .submit:active {
     background-color: #06b;
 }
+
+.okMessage {
+    color: rgb(60, 196, 60);
+}
+
+.notOkMessage {
+    color: rgb(196, 60, 60);
+}

@@ -3,6 +3,7 @@ import styles from '../styles/Player.module.css'
 import { useState } from 'react'
 
 export default function Player({ player, handleDelete }) {
+    // TODO : edit player
     //Which type of action the user is performing on the player ("View", "Delete", "Edit")
     const [cardType, setCardType] = useState("View")
 
