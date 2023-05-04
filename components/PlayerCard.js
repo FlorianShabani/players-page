@@ -60,7 +60,6 @@ function ViewPlayer({ player }) {
 function DeletePlayer({ player, handleDelete }) {
     return (
         <div className={styles.cardContent}>
-            <label className={styles.deleteText} for="deleteButton">Delete Player?</label>
             <button id="deleteButton" className={styles.deleteButton} onClick={handleDelete}>Delete</button>
         </div>
     )
@@ -69,7 +68,9 @@ function DeletePlayer({ player, handleDelete }) {
 function EditPlayer({ player, handleEdit }) {
     return (
         <div className={styles.cardContent}>
-            <button className={styles.editButton} onClick={handleEdit}>Edit</button>
+            <Link href={`/edit/${player.id}`}>
+                <button className={styles.editButton} onClick={handleEdit}>Edit</button>
+            </Link>
         </div>
     )
 }
