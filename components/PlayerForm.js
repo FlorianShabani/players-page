@@ -14,15 +14,29 @@ export default function PlayerForm({ handleSubmit, responseOK, formText, player 
     })
 
     useEffect(() => {
-        setFormData({ ...player })
+        if (player.name !== undefined) {
+            setFormData({
+                name: player.name,
+                age: player.age,
+                team: player.team
+            })
+        }
     }, [player])
 
     console.log(player, formData)
 
     function validFormData() {
+        if (formData.name === undefined) {
+            return false
+        } else if (formData.team === undefined) {
+            return false
+        } else if (formData.age === undefined) {
+            return false
+        }
+
         if (formData.age < 0) {
             return false
-        } 
+        }
         return true
     }
 
@@ -36,7 +50,9 @@ export default function PlayerForm({ handleSubmit, responseOK, formText, player 
 
     function onSubmit(event) {
         event.preventDefault()
-        console.log(validFormData())
+
+        console.log(formData)
+
         if (validFormData()) {
             console.log("SUBMITTTEEEEDDDDDDDDDDDDDDDDD")
             handleSubmit(formData)

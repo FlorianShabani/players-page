@@ -20,15 +20,15 @@ export default function editPlayer() {
     }
     //Fetch players information
     useEffect(() => {
-        if(id !== undefined) {
-        fetch(`http://localhost:8080/api/players/${id}`)
-            .then(res => res.json())
-            .then(data => {
-                setPlayer(data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        if (id !== undefined) {
+            fetch(`http://localhost:8080/api/players/${id}`)
+                .then(res => res.json())
+                .then(data => {
+                    setPlayer(data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         }
     }, [id])
 
