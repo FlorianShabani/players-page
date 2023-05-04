@@ -8,9 +8,9 @@ export default function PlayerForm({ handleSubmit, responseOK, formText, player 
     const [errorSubmit, setErrorSubmit] = useState(false)
 
     const [formData, setFormData] = useState({
-        name: player.name,
-        age: player.age,
-        team: player.team
+        name: "",
+        age: 0,
+        team: ""
     })
 
     useEffect(() => {
