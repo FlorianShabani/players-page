@@ -26,15 +26,11 @@ export default function PlayerForm({ handleSubmit, responseOK, formText, player 
     console.log(player, formData)
 
     function validFormData() {
-        if (formData.name === undefined) {
+        if (formData.name === "") {
             return false
-        } else if (formData.team === undefined) {
+        } else if (formData.team === "") {
             return false
-        } else if (formData.age === undefined) {
-            return false
-        }
-
-        if (formData.age < 0) {
+        } else if (formData.age < 0) {
             return false
         }
         return true
