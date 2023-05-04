@@ -68,7 +68,7 @@ function DeletePlayer({ player, handleDelete }) {
 function EditPlayer({ player, handleEdit }) {
     return (
         <div className={styles.cardContent}>
-            <Link href={`/edit/${player.id}`}>
+            <Link href={`/editPlayer/${player.id}`}>
                 <button className={styles.editButton} onClick={handleEdit}>Edit</button>
             </Link>
         </div>

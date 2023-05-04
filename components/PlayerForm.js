@@ -3,35 +3,29 @@ import React, { useState, useEffect } from 'react'
 
 import styles from '../styles/PlayerForm.module.css'
 
-export default function PlayerForm({ handleSubmit, responseOK, setResponseOK }) {
-    const [invalidFormData, setInvalidFormData] = useState({
-        name: false,
-        age: false,
-        team: false
-    })
+export default function PlayerForm({ handleSubmit, responseOK, formText, player }) {
+
+    const [errorSubmit, setErrorSubmit] = useState(false)
 
     const [formData, setFormData] = useState({
-        name: 'Florian',
-        age: 20,
-        team: 'LFC'
+        name: player.name,
+        age: player.age,
+        team: player.team
     })
 
     useEffect(() => {
-        setInvalidFormData(validateFormData(formData))
-    }, [formData])
+        setFormData({ ...player })
+    }, [player])
 
+    console.log(player, formData)
 
-    function validateFormData(data) {
-        let invalidData = { ...invalidFormData }
-        if (data.age < 0) {
-            invalidData.age = true
-        } else {
-            invalidData.age = false
-        }
-        return invalidData
+    function validFormData() {
+        if (formData.age < 0) {
+            return false
+        } 
+        return true
     }
 
-    console.log(formData, invalidFormData)
     function handleChange(event) {
         const { name, value, type, checked } = event.target
         setFormData(prevFormData => ({
@@ -42,22 +36,21 @@ export default function PlayerForm({ handleSubmit, responseOK, setResponseOK }) 
 
     function onSubmit(event) {
         event.preventDefault()
-
-        if (!invalidData) {
-            handleSubmit(event)
+        console.log(validFormData())
+        if (validFormData()) {
+            console.log("SUBMITTTEEEEDDDDDDDDDDDDDDDDD")
+            handleSubmit(formData)
+            setErrorSubmit(false)
+        } else {
+            setErrorSubmit(true)
         }
-        
-    }
-
-    function invalidData() {
-        return Object.values(invalidFormData).every(validData => !validData)
     }
 
     return (
         <div className={styles.body}>
             <form className={styles.form} onSubmit={onSubmit}>
-                <div className={styles.title}>Create player</div>
-                <div className={styles.subtitle}>Enter the players info!</div>
+                <div className={styles.title}>{formText.title}</div>
+                <div className={styles.subtitle}>{formText.subtitle}</div>
                 <div className={`${styles.inputContainer} ${styles.ic1}`}>
                     <input
                         id="name"
@@ -83,7 +76,7 @@ export default function PlayerForm({ handleSubmit, responseOK, setResponseOK }) 
                     />
                     <div className={styles.cut} />
                     <label htmlFor="team" className={styles.placeholder}>
-                        team
+                        Team
                     </label>
                 </div>
 
@@ -100,15 +93,15 @@ export default function PlayerForm({ handleSubmit, responseOK, setResponseOK }) 
                     <label htmlFor="age" className={styles.placeholder}>
                         Age
                     </label>
-                    {invalidFormData.age && <p className={`${styles.notOkMessage} ${styles.subtitle}`}>Age cannot be negative</p>}
+                    {(formData.age < 0) && <p className={`${styles.notOkMessage} ${styles.subtitle}`}>Age cannot be negative</p>}
                 </div>
 
-                <button type="text" className={styles.submit}>
+                <button className={styles.submit}>
                     Submit
                 </button>
-                {!invalidData() && <p className={`${styles.notOkMessage} ${styles.subtitle}`}>Invalid Form Data</p>}
-                {responseOK === "true" && <p className={`${styles.okMessage} ${styles.subtitle}`}>Player Added Succsessfully</p>}
-                {responseOK === "false" && <p className={`${styles.notOkMessage} ${styles.subtitle}`}>Error Adding Player</p>}
+                {!validFormData() && <p className={`${styles.notOkMessage} ${styles.subtitle}`}>Invalid Form Data</p>}
+                {(responseOK === "true" && !errorSubmit) && <p className={`${styles.okMessage} ${styles.subtitle}`}>{formText.okSubmitMessage}</p>}
+                {(responseOK === "false" || errorSubmit) && <p className={`${styles.notOkMessage} ${styles.subtitle}`}>{formText.notOkSubmitMessage}</p>}
             </form>
         </div>
     )

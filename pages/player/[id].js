@@ -11,12 +11,14 @@ export default function PlayerPage() {
 
 
     useEffect(() => {
+        if(id !== undefined) {
         fetch(`http://localhost:8080/api/players/${id}`)
             .then(res => res.json())
             .then(data => {
                 setPlayers(data)
             })
-    }, [])
+        }
+    }, [id]);
 
     return (
         <Player player={player} />

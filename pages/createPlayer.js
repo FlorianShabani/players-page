@@ -5,9 +5,16 @@ import PlayerForm from "../components/PlayerForm"
 export default function createPlayer() {
     // "" - no response yet, "true", "false"
 
+    let formText = {
+        title : "Create Player",
+        subtitle : "Enter the players info!",
+        okSubmitMessage : "Player Added Successfully",
+        notOkSubmitMessage : "Error Adding Player"
+    }
+
     const [responseOK, setResponseOK] = useState("")
 
-    function handleSubmit(event) {
+    function handleSubmit(formData) {
         console.log("HANDLED")
         try {
             fetch("http://localhost:8080/api/players", {
@@ -24,7 +31,7 @@ export default function createPlayer() {
                 }
             });
         } catch (error) {
-            console.log("error")
+            console.log("error", error)
             setResponseOK("false")
         }
     }
@@ -33,6 +40,8 @@ export default function createPlayer() {
         <PlayerForm
             handleSubmit={handleSubmit}
             responseOK={responseOK}
+            formText={...formText}
+            player={{}}
             />
     )
 }
