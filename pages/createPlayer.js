@@ -18,7 +18,7 @@ export default function createPlayer() {
         const { name, value, type, checked } = event.target
         setFormData(prevFormData => ({
             ...prevFormData,
-            [name]: type === "checkbox" ? checked : value
+            [name]: type === "checkbox" ? checked : type === "number" ? parseInt(value) : value
         }))
     }
 

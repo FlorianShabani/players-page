@@ -5,7 +5,7 @@ export default function Home() {
         <>
             <h1>Players API</h1>
             <Link href="/players">See Players</Link>
-            <Link href="/createPlayers">Create Players</Link>
+            <Link href="/createPlayer">Create Players</Link>
         </>
     )
 }
