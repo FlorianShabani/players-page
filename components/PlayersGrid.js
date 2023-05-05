@@ -5,6 +5,7 @@ import styles from '../styles/Players.module.css';
 export default function PlayersGrid() {
 
     const [players, setPlayers] = useState([])
+    const [deletedAction, setDeletedAction] = useState(false)
 
     useEffect(() => {
         fetch("http://localhost:8080/api/players")
@@ -22,6 +23,7 @@ export default function PlayersGrid() {
                     setPlayers((prev) => (
                         prev.filter(player => player.id !== id)
                     ))
+                    setDeletedAction(prev => !prev)
                 }
             })
     }
@@ -31,12 +33,32 @@ export default function PlayersGrid() {
     )
     )
 
+    console.log(deletedAction)
+
     return (
         <>
+            {<DeleteNotification animate={deletedAction}/>}
             <h1>All Players</h1>
             <div className={styles.playersGrid}>
                 {Players}
             </div>
         </>
     )
+}
+
+
+function DeleteNotification({animate}) {
+    const[triggerAnimation, setTriggerAnimation] = useState(false)
+
+    useEffect(() => {
+        setTriggerAnimation(prev => !prev)
+    }, [animate])
+
+    return (
+        <div className={styles.deleteNotification}>
+            <p>Deleted Successfully</p>
+        </div>
+    )
+
+    
 }
