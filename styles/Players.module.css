@@ -1,5 +1,32 @@
-.playersGrid {
+.container {
+    margin: 5%;
+    line-height: 40px;
+    
+    font: small-caps bold 20px/1;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
+
+.playersInfo {
+
+    color: aliceblue;
+    text-align: center;
+
+    background-color: #224d69f8;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.playersInfo p {
+    text-align: justify;
+    padding-left: 7%;
+    padding-right: 7%;
+}
+
+.playersGrid {
+    all: initial;
+
+    font: small-caps bold 15px/1;
 
     display: grid;
 
@@ -8,4 +35,8 @@
     grid-auto-rows: auto;
 
     grid-gap: 1rem;
+}
+
+.horizontalLine {
+    margin-top: 40px;
 }

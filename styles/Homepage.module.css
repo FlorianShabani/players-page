@@ -1,0 +1,26 @@
+.container {
+    color: aliceblue;
+    margin: 5%;
+
+    background-color: #224d69f8;
+    border-radius: 20px;
+}
+
+
+.title {
+    text-align: center;
+}
+
+.link {
+    margin: 30px 100px 30px 100px;
+
+    align-self: left;
+    text-align: justify;
+    background-color: cornflowerblue;
+    color: aliceblue;
+    transition: 0.3s;
+}
+
+.link:hover {
+
+}

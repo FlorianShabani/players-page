@@ -47,6 +47,7 @@
 }
 
 .cardContent {
+    margin-top: 0px;
     justify-content: center;
     align-items: center;
     display:grid;
@@ -73,6 +74,7 @@
 .tools {
     align-items: center;
     padding: 9px;
+    padding-bottom: 0;
 }
 
 .circle {

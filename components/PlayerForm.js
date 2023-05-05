@@ -61,7 +61,10 @@ export default function PlayerForm({ handleSubmit, responseOK, formText, player 
     return (
         <div className={styles.body}>
             <form className={styles.form} onSubmit={onSubmit}>
-                <div className={styles.title}>{formText.title}</div>
+                <div className={styles.title}>
+                    {formText.title}
+                    <span className={styles.idText}>{(player.id) && "ID : " + player.id}</span>
+                </div>
                 <div className={styles.subtitle}>{formText.subtitle}</div>
                 <div className={`${styles.inputContainer} ${styles.ic1}`}>
                     <input

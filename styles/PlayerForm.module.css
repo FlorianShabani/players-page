@@ -130,3 +130,9 @@
 .notOkMessage {
     color: rgb(196, 60, 60);
 }
+
+.idText {
+    font-size: small;
+    opacity: 0.5;
+    margin-left: 5%;
+}   

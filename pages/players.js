@@ -1,47 +1,21 @@
-import { useState, useEffect } from "react";
-import styles from '../styles/Players.module.css'
-import PlayerCard from '../components/PlayerCard'
-import Link from 'next/link'
+import PlayersGrid from "../components/PlayersGrid"
+
+import styles from "../styles/Players.module.css"
 
 export default function Players() {
 
-    const [players, setPlayers] = useState([])
-
-    useEffect(() => {
-        fetch("http://localhost:8080/api/players")
-            .then(res => res.json())
-            .then(data => {
-                setPlayers(() => data)
-                console.log(players)
-            })
-    }, [])
-
-    function handleDelete(id) {
-        fetch(`http://localhost:8080/api/players/${id}`, { method: "DELETE" })
-            .then((response) => {
-                if (response.status === 200) {
-                    setPlayers((prev) => (
-                        prev.filter(player => player.id !== id)
-                    ))
-                }
-            })
-    }
-
-    const Players = players.map(player => (
-        <PlayerCard key={player.id} player={player} handleDelete={() => { handleDelete(player.id) }} />
-    )
-    )
-
     return (
-        <>
-            <h1>Players API</h1>
-            <div className={styles.playersGrid}>
-                {Players}
-            </div>
-        </>
-    )
-}
+        <div className={styles.container}>
+            <div className={styles.playersInfo}>
+                <h1>View All your Players</h1>
+                <p>
 
-function newPlayerForm() {
-    return (<p>Players Form</p>)
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque viverra nibh a felis elementum facilisis. Curabitur eu tincidunt elit. Aliquam facilisis porta placerat. Donec ut mollis sapien. Aenean porttitor elit ipsum, in condimentum sem ornare non. Nullam vitae porttitor nulla, sed maximus lacus. Sed at porta arcu. Aliquam vestibulum, quam id fermentum mollis, tortor velit venenatis sapien, in porta lorem lorem ac leo. In ac ante convallis, pulvinar enim et, consequat arcu. Integer sit amet mi fringilla, semper urna et, suscipit quam. Duis egestas est nisl, sed sagittis justo lobortis vel. Maecenas eu nibh sed neque finibus egestas condimentum sit amet ligula. Maecenas sit amet est non dolor bibendum bibendum. In eu facilisis felis, nec consequat magna. Vivamus id molestie ante, eget interdum quam.
+
+                </p>
+            </div>
+            <hr className={styles.horizontalLine}/>
+            <PlayersGrid />
+        </div>
+    )
 }
