@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import PlayerCard from '../components/PlayerCard';
 import styles from '../styles/Players.module.css';
+import { TEMPORARY_REDIRECT_STATUS } from "next/dist/shared/lib/constants";
+
+
 
 export default function PlayersGrid() {
 
     const [players, setPlayers] = useState([])
-    const [deletedAction, setDeletedAction] = useState(false)
+    const [deletedAction, setDeletedAction] = useState(true)
 
     useEffect(() => {
         fetch("http://localhost:8080/api/players")
@@ -33,11 +36,9 @@ export default function PlayersGrid() {
     )
     )
 
-    console.log(deletedAction)
-
     return (
         <>
-            {<DeleteNotification animate={deletedAction}/>}
+            <DeleteNotification animate={deletedAction} />
             <h1>All Players</h1>
             <div className={styles.playersGrid}>
                 {Players}
@@ -47,18 +48,25 @@ export default function PlayersGrid() {
 }
 
 
-function DeleteNotification({animate}) {
-    const[triggerAnimation, setTriggerAnimation] = useState(false)
+function DeleteNotification({ animate }) {
+    const [triggerAnimation, setTriggerAnimation] = useState(animate)
 
-    useEffect(() => {
-        setTriggerAnimation(prev => !prev)
-    }, [animate])
-
-    return (
+    let deleteNotification = (
         <div className={styles.deleteNotification}>
             <p>Deleted Successfully</p>
         </div>
     )
 
-    
+    useEffect(() => {
+        setTriggerAnimation(true)
+        setTimeout(() => {
+            setTriggerAnimation(false)
+        }, 2000)
+    }, [animate])
+
+    return (
+        <>
+            {triggerAnimation && deleteNotification}
+        </>
+    )
 }
