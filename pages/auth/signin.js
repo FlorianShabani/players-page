@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SignForm from "../../components/SignForm";
 
-export default function SignIn() {
+export default function signIn() {
 
     let formText = {
         title: "Sign In",
@@ -12,7 +12,7 @@ export default function SignIn() {
 
     const [responseOK, setResponseOK] = useState("")
 
-    async function handleSubmit(formData) {
+    function handleSubmit(formData) {
         // Make the login API call
         try {
             fetch("http://localhost:8081/auth/signin", {
@@ -30,6 +30,10 @@ export default function SignIn() {
                 return response.json()
             }).then(data => {
                 console.log(data);
+
+                const { jwt_token } = data;
+
+                login({ jwt_token })
             })
         } catch (error) {
             console.log("error", error)
@@ -37,10 +41,8 @@ export default function SignIn() {
         }
         //...
         // Extract the JWT from the response
-        // const { jwt_token } = await response.json()
         //...
         // Do something the token in the login method
-        //await login({ jwt_token })
     }
 
     return (

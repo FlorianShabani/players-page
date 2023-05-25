@@ -1,10 +1,10 @@
 import { useState } from "react";
 import SignForm from "../../components/SignForm";
 
-export default function SignUp() {
+export default function signUp() {
 
     let formText = {
-        title: "Sign In",
+        title: "Sign Up",
         subtitle: "Enter your email address and password",
         okSubmitMessage: "Sign in successfull",
         notOkSubmitMessage: "Error signing in",
@@ -15,7 +15,7 @@ export default function SignUp() {
     async function handleSubmit(formData) {
         // Make the login API call
         try {
-            fetch("http://localhost:8081/auth/signup", {
+            fetch("http://localhost:8081/auth/signin", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -27,7 +27,10 @@ export default function SignUp() {
                 } else {
                     setResponseOK("false")
                 }
-            });
+                return response.json()
+            }).then(data => {
+                console.log(data);
+            })
         } catch (error) {
             console.log("error", error)
             setResponseOK("false")
