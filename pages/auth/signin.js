@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SignForm from "../../components/SignForm";
+import axios from '../../util/auth'
 
 export default function signIn() {
 
@@ -15,12 +16,8 @@ export default function signIn() {
     function handleSubmit(formData) {
         // Make the login API call
         try {
-            fetch("http://localhost:8081/auth/signin", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData),
+            axios.post("http://localhost:8081/auth/signin", {
+                formData
             }).then(response => {
                 if (response.status === 200) {
                     setResponseOK("true")
