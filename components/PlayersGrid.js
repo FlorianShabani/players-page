@@ -35,7 +35,6 @@ export default function PlayersGrid() {
         <PlayerCard key={player.id} player={player} handleDelete={() => { handleDelete(player.id) }} />
     )
     )
-    localStorage
     return (
         <>
             <DeleteNotification animate={deletedAction} />

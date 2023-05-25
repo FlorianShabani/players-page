@@ -9,6 +9,8 @@ export default function Home() {
             <div>
                 <Link className={styles.link} href="/players">See Players</Link>
                 <Link className={styles.link} href="/createPlayer">Create Players</Link>
+                <Link className={styles.link} href="/auth/signin">Sign In</Link>
+                <Link className={styles.link} href="/auth/signup">Sign Up</Link>
             </div>
         </div>
     )
