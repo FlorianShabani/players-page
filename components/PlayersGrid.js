@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import PlayerCard from '../components/PlayerCard';
 import styles from '../styles/Players.module.css';
-import { TEMPORARY_REDIRECT_STATUS } from "next/dist/shared/lib/constants";
-
 
 
 export default function PlayersGrid() {
@@ -10,27 +8,29 @@ export default function PlayersGrid() {
     const [players, setPlayers] = useState([])
     const [deletedAction, setDeletedAction] = useState(true)
 
-    useEffect(() => {
-        fetch("http://localhost:8080/api/players")
-            .then(res => res.json())
-            .then(data => {
-                setPlayers(() => data)
-                console.log(players)
-            })
-    }, [])
 
-    function handleDelete(id) {
-        fetch(`http://localhost:8080/api/players/${id}`, { method: "DELETE" })
+    useEffect(() => {
+        fetch("http://localhost:8081/api/players")
+        .then(res => res.json())
+        .then(data => {
+            setPlayers(() => data)
+            console.log(players)
+            })
+        }, [])
+        
+        function handleDelete(id) {
+            fetch(`http://localhost:8081/api/players/${id}`, { method: "DELETE" })
             .then((response) => {
                 if (response.status === 200) {
                     setPlayers((prev) => (
                         prev.filter(player => player.id !== id)
-                    ))
-                    setDeletedAction(prev => !prev)
-                }
-            })
-    }
-
+                        ))
+                        setDeletedAction(prev => !prev)
+                    }
+                })
+            }
+            
+    //TODO Dont give error when no players are fetched
     const Players = players.map(player => (
         <PlayerCard key={player.id} player={player} handleDelete={() => { handleDelete(player.id) }} />
     )

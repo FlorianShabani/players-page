@@ -21,7 +21,7 @@ export default function editPlayer() {
     //Fetch players information
     useEffect(() => {
         if (id !== undefined) {
-            fetch(`http://localhost:8080/api/players/${id}`)
+            fetch(`http://localhost:8081/api/players/${id}`)
                 .then(res => res.json())
                 .then(data => {
                     setPlayer(data)
@@ -35,7 +35,7 @@ export default function editPlayer() {
     function handleSubmit(formData) {
         console.log("HANDLED")
         try {
-            fetch(`http://localhost:8080/api/players/${id}`, {
+            fetch(`http://localhost:8081/api/players/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"

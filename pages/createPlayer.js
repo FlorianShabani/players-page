@@ -17,7 +17,9 @@ export default function createPlayer() {
     function handleSubmit(formData) {
         console.log("HANDLED")
         try {
-            fetch("http://localhost:8080/api/players", {
+
+            console.log(JSON.stringify(formData))
+            fetch("http://localhost:8081/api/players", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
