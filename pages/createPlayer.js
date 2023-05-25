@@ -3,15 +3,15 @@ import { useEffect, useState } from 'react'
 import PlayerForm from "../components/PlayerForm"
 
 export default function createPlayer() {
-    // "" - no response yet, "true", "false"
-
+    
     let formText = {
         title : "Create Player",
         subtitle : "Enter the players info!",
         okSubmitMessage : "Player Added Successfully",
         notOkSubmitMessage : "Error Adding Player"
     }
-
+    
+    // "" - no response yet, "true", "false"
     const [responseOK, setResponseOK] = useState("")
 
     function handleSubmit(formData) {

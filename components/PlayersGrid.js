@@ -11,31 +11,31 @@ export default function PlayersGrid() {
 
     useEffect(() => {
         fetch("http://localhost:8081/api/players")
-        .then(res => res.json())
-        .then(data => {
-            setPlayers(() => data)
-            console.log(players)
+            .then(res => res.json())
+            .then(data => {
+                setPlayers(() => data)
+                console.log(players)
             })
-        }, [])
-        
-        function handleDelete(id) {
-            fetch(`http://localhost:8081/api/players/${id}`, { method: "DELETE" })
+    }, [])
+
+    function handleDelete(id) {
+        fetch(`http://localhost:8081/api/players/${id}`, { method: "DELETE" })
             .then((response) => {
                 if (response.status === 200) {
                     setPlayers((prev) => (
                         prev.filter(player => player.id !== id)
-                        ))
-                        setDeletedAction(prev => !prev)
-                    }
-                })
-            }
-            
+                    ))
+                    setDeletedAction(prev => !prev)
+                }
+            })
+    }
+
     //TODO Dont give error when no players are fetched
     const Players = players.map(player => (
         <PlayerCard key={player.id} player={player} handleDelete={() => { handleDelete(player.id) }} />
     )
     )
-
+    localStorage
     return (
         <>
             <DeleteNotification animate={deletedAction} />
