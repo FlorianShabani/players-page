@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PlayerCard from '../components/PlayerCard';
 import styles from '../styles/Players.module.css';
-
+import { fetchData, redirectLogin } from "../utils/auth";
 
 export default function PlayersGrid() {
 
@@ -10,8 +10,15 @@ export default function PlayersGrid() {
 
 
     useEffect(() => {
-        fetch("http://localhost:8081/api/players")
-            .then(res => res.json())
+        fetchData("api/players", "GET", {})
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json()
+                }
+                else {
+                    redirectLogin()
+                 }
+            })
             .then(data => {
                 setPlayers(() => data)
                 console.log(players)
@@ -19,7 +26,7 @@ export default function PlayersGrid() {
     }, [])
 
     function handleDelete(id) {
-        fetch(`http://localhost:8081/api/players/${id}`, { method: "DELETE" })
+        fetchData(`api/players/${id}`, "DELETE", {})
             .then((response) => {
                 if (response.status === 200) {
                     setPlayers((prev) => (
