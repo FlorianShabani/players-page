@@ -7,10 +7,9 @@ export default function Home() {
         <div className={styles.container}>
             <h1 className={styles.title}>Players API</h1>
             <div>
-                <Link className={styles.link} href="/players">See Players</Link>
-                <Link className={styles.link} href="/createPlayer">Create Players</Link>
-                <Link className={styles.link} href="/auth/signin">Sign In</Link>
-                <Link className={styles.link} href="/auth/signup">Sign Up</Link>
+                <Link className={styles.link} href="/players"><button>See Players</button></Link>
+                <Link className={styles.link} href="/createPlayer"><button>Create Players</button></Link>
+                <Link className={styles.link} href="/auth/signin"><button>Sign In</button></Link>
             </div>
         </div>
     )
