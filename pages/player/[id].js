@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import Player from '../../components/PlayerCard'
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import Player from '../../components/PlayerCard';
+import { fetchData } from '../../utils/auth';
 
 export default function PlayerPage() {
     const [player, setPlayers] = useState({});
@@ -11,12 +12,12 @@ export default function PlayerPage() {
 
 
     useEffect(() => {
-        if(id !== undefined) {
-        fetch(`http://localhost:8081/api/players/${id}`)
-            .then(res => res.json())
-            .then(data => {
-                setPlayers(data)
-            })
+        if (id !== undefined) {
+            fetchData(`api/players/${id}`, 'GET', null)
+                .then(res => res.json())
+                .then(data => {
+                    setPlayers(data)
+                })
         }
     }, [id]);
 

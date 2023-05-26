@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PlayerCard from '../components/PlayerCard';
 import styles from '../styles/Players.module.css';
-import { fetchData, redirectLogin } from "../utils/auth";
+import { fetchData } from "../utils/auth";
 
 export default function PlayersGrid() {
 
@@ -10,7 +10,7 @@ export default function PlayersGrid() {
 
 
     useEffect(() => {
-        fetchData("api/players", "GET", null)
+        fetchData("api/players", "GET",)
             .then(res => {
                 if (res.status === 200) {
                     return res.json()
@@ -35,12 +35,15 @@ export default function PlayersGrid() {
                 }
             })
     }
-
+    let Players;
     //TODO Dont give error when no players are fetched
-    const Players = players.map(player => (
-        <PlayerCard key={player.id} player={player} handleDelete={() => { handleDelete(player.id) }} />
-    )
-    )
+    if (players) {
+        Players = players.map(player => (
+            <PlayerCard key={player.id} player={player} handleDelete={() => { handleDelete(player.id) }} />
+        ))
+    } else {
+        Players = <p>Unauthorized, please sign in</p>
+    }
     return (
         <>
             <DeleteNotification animate={deletedAction} />

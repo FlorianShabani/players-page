@@ -1,8 +1,9 @@
 import PlayerForm from "../../components/PlayerForm";
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react';
 
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
+import { fetchData } from "../../utils/auth";
 
 export default function editPlayer() {
     // "" - no response yet, "true", "false"
@@ -21,7 +22,7 @@ export default function editPlayer() {
     //Fetch players information
     useEffect(() => {
         if (id !== undefined) {
-            fetch(`http://localhost:8081/api/players/${id}`)
+            fetchData(`api/players/${id}`, 'GET', null)
                 .then(res => res.json())
                 .then(data => {
                     setPlayer(data)
@@ -35,19 +36,14 @@ export default function editPlayer() {
     function handleSubmit(formData) {
         console.log("HANDLED")
         try {
-            fetch(`http://localhost:8081/api/players/${id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData),
-            }).then(response => {
-                if (response.status === 200) {
-                    setResponseOK("true")
-                } else {
-                    setResponseOK("false")
-                }
-            });
+            fetchData(`api/players/${id}`, 'PATCH', formData)
+                .then(response => {
+                    if (response.status === 200) {
+                        setResponseOK("true")
+                    } else {
+                        setResponseOK("false")
+                    }
+                });
         } catch (error) {
             console.log("error", error)
             setResponseOK("false")

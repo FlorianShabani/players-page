@@ -19,13 +19,7 @@ export default function createPlayer() {
         try {
 
             console.log(JSON.stringify(formData))
-            fetch("http://localhost:8081/api/players", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData),
-            }).then(response => {
+            fetchData("api/players", 'POST', formData).then(response => {
                 if (response.status === 200) {
                     setResponseOK("true")
                 } else {

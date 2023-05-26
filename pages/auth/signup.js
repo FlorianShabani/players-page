@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SignForm from "../../components/SignForm";
+import login from "../../utils/auth";
 
 export default function signUp() {
 
@@ -14,23 +15,26 @@ export default function signUp() {
 
     async function handleSubmit(formData) {
         try {
-            fetch("http://localhost:8081/auth/signup", {
+            fetch("http://localhost:8081/auth/signup", 
+            {
                 method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
+                headers: { 
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(formData),
-            }).then(response => {
-                if (response.status === 200) {
-                    setResponseOK("true")
-                } else {
-                    setResponseOK("false")
-                }
-                return response.json()
-            }).then(data => {
-                const { access_token } = data;
-                login(access_token)
             })
+                .then(response => {
+                    if (response.status === 200) {
+                        setResponseOK("true")
+                    } else {
+                        setResponseOK("false")
+                    }
+                    return response.json()
+                }).then(data => {
+                    const { access_token } = data;
+                    console.log(data);
+                    login(access_token)
+                })
         } catch (error) {
             console.log("error", error)
             setResponseOK("false")

@@ -17,7 +17,14 @@ export default function signIn() {
     function handleSubmit(formData) {
         // Make the login API call
         try {
-            fetchData("auth/signin", "POST", formData)
+            fetch("http://localhost:8081/auth/signin", 
+            {
+                method: "POST",
+                headers: { 
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
                 .then(response => {
                     if (response.status === 200) {
                         setResponseOK("true")
