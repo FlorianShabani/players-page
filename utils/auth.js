@@ -1,11 +1,13 @@
+import axios from "axios";
+
 export default function login(jwtToken) {
     sessionStorage.setItem("jwtToken", jwtToken);
-    console.log("Logged in");
+    console.log(sessionStorage.getItem("jwtToken"));
 }
 
-export const axiosInstance = axios.create({
+const axiosInstance = axios.create({
+    baseURL: 'https://localhost:8081',
     headers: {
-        'Authorization': `Bearer ${sessionStorage.getItem("jwtToken")}`, // Add or modify headers as needed
-        'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
     },
 });

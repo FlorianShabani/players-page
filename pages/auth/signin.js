@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SignForm from "../../components/SignForm";
-import axios from '../../util/auth'
+import { axiosInstance } from '../../utils/auth';
+import login from '../../utils/auth';
 
 export default function signIn() {
 
@@ -16,8 +17,12 @@ export default function signIn() {
     function handleSubmit(formData) {
         // Make the login API call
         try {
-            axios.post("http://localhost:8081/auth/signin", {
-                formData
+            fetch("http://localhost:8081/auth/signin", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData),
             }).then(response => {
                 if (response.status === 200) {
                     setResponseOK("true")
@@ -26,21 +31,14 @@ export default function signIn() {
                 }
                 return response.json()
             }).then(data => {
+                const { access_token } = data;
                 console.log(data);
-
-                const { jwt_token } = data;
-
-                login({ jwt_token })
+                login(access_token)
             })
         } catch (error) {
             console.log("error", error)
             setResponseOK("false")
         }
-
-        //...
-        // Extract the JWT from the response
-        //...
-        // Do something the token in the login method
     }
 
     return (
