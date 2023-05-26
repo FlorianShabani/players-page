@@ -3,13 +3,22 @@ export default function login(jwtToken) {
     console.log(sessionStorage.getItem("jwtToken"));
 }
 
+export function logout() {
+    sessionStorage.removeItem("jwtToken");
+}
+
 export function fetchData(url, method, data) {
-    return fetch("http://localhost:8081/" + url, {
+    const params = {
         method: method,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': "Bearer" + sessionStorage.getItem("jwtToken"),
+            'Authorization': "Bearer " + sessionStorage.getItem("jwtToken"),
         },
-        data: (data) ? JSON.stringify(data) : null,
-    });
+    }
+
+    if(data) {
+        params.body = JSON.stringify(data)
+    }
+
+    return fetch("http://localhost:8081/" + url, params);
 }

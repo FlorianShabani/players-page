@@ -10,14 +10,13 @@ export default function PlayersGrid() {
 
 
     useEffect(() => {
-        fetchData("api/players", "GET", {})
+        fetchData("api/players", "GET", null)
             .then(res => {
                 if (res.status === 200) {
                     return res.json()
                 }
                 else {
-                    redirectLogin()
-                 }
+                }
             })
             .then(data => {
                 setPlayers(() => data)

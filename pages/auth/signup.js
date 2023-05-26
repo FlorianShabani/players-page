@@ -13,12 +13,11 @@ export default function signUp() {
     const [responseOK, setResponseOK] = useState("")
 
     async function handleSubmit(formData) {
-        // Make the login API call
         try {
-            fetch("http://localhost:8081/auth/signin", {
+            fetch("http://localhost:8081/auth/signup", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData),
             }).then(response => {
@@ -29,18 +28,13 @@ export default function signUp() {
                 }
                 return response.json()
             }).then(data => {
-                console.log(data);
+                const { access_token } = data;
+                login(access_token)
             })
         } catch (error) {
             console.log("error", error)
             setResponseOK("false")
         }
-        //...
-        // Extract the JWT from the response
-        // const { jwt_token } = await response.json()
-        //...
-        // Do something the token in the login method
-        //await login({ jwt_token })
     }
 
     return (

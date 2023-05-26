@@ -1,8 +1,6 @@
 import { useState } from "react";
 import SignForm from "../../components/SignForm";
-import { axiosInstance } from '../../utils/auth';
-import login from '../../utils/auth';
-import { fetchData } from "../../utils/auth";
+import login, { fetchData } from '../../utils/auth';
 
 
 export default function signIn() {
@@ -19,24 +17,19 @@ export default function signIn() {
     function handleSubmit(formData) {
         // Make the login API call
         try {
-            fetch("http://localhost:8081/auth/signin", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData),
-            }).then(response => {
-                if (response.status === 200) {
-                    setResponseOK("true")
-                } else {
-                    setResponseOK("false")
-                }
-                return response.json()
-            }).then(data => {
-                const { access_token } = data;
-                console.log(data);
-                login(access_token)
-            })
+            fetchData("auth/signin", "POST", formData)
+                .then(response => {
+                    if (response.status === 200) {
+                        setResponseOK("true")
+                    } else {
+                        setResponseOK("false")
+                    }
+                    return response.json()
+                }).then(data => {
+                    const { access_token } = data;
+                    console.log(data);
+                    login(access_token)
+                })
         } catch (error) {
             console.log("error", error)
             setResponseOK("false")
@@ -44,9 +37,11 @@ export default function signIn() {
     }
 
     return (
-        <SignForm handleSubmit={handleSubmit}
-            responseOK={responseOK}
-            formText={...formText}
-            player={{}} />
+        <div>
+            <SignForm handleSubmit={handleSubmit}
+                responseOK={responseOK}
+                formText={...formText}
+                player={{}} />
+        </div>
     )
 }
